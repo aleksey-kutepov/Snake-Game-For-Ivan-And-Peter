@@ -1,7 +1,6 @@
-#coding: utf8
+# coding: utf8
 import random
 import pygame
-import pygame.gfxdraw
 
 random.seed()
 pygame.init()
@@ -73,7 +72,7 @@ class Game(object):
                        else pygame.display.set_mode((self.display_size_x, self.display_size_y)))
         self.snake = Snake(self.screen, self.snake_speed, length=self.snake_length, width=self.snake_width)
         self.apple = Apple(self.screen, self.apple_size)
-        pygame.display.set_caption(u'Змейка для Ивана и Петра')
+        pygame.display.set_caption('Змейка для Ивана и Петра')
 
     def screen_boundary_hit(self, x, y):
         max_x, max_y = self.screen.get_size()
