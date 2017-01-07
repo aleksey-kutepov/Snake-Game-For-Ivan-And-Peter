@@ -9,7 +9,8 @@ pygame.init()
 class GameController(object):
     def __init__(self):
         if not GameController.is_joystick_present():
-            print(u'Джойстик не найден. Для управления используйте курсор клавиатуры.')
+            print(u'Джойстик не найден. '
+                  u'Для управления используйте курсор клавиатуры.')
         else:
             self.joystick = pygame.joystick.Joystick(0)
             self.joystick.init()
@@ -53,8 +54,10 @@ class Game(object):
     SCREEN_BOUNDARY_BOTTOM = 2
     SCREEN_BOUNDARY_LEFT = 3
 
-    def __init__(self, display_size_x=800, display_size_y=600, full_screen=False, field_color=(0, 0, 0),
-                 max_fpx=60, initial_snake_speed=1, snake_speed_add=0.3, snake_length=100, snake_length_add=50,
+    def __init__(self, display_size_x=800, display_size_y=600,
+                 full_screen=False, field_color=(0, 0, 0),
+                 max_fpx=60, initial_snake_speed=1, snake_speed_add=0.3,
+                 snake_length=100, snake_length_add=50,
                  snake_width=3, apple_size=30):
         self.display_size_x = display_size_x
         self.display_size_y = display_size_y
@@ -69,8 +72,10 @@ class Game(object):
         self.clock = pygame.time.Clock()
         self.game_controller = GameController()
         self.screen = (pygame.display.set_mode() if full_screen
-                       else pygame.display.set_mode((self.display_size_x, self.display_size_y)))
-        self.snake = Snake(self.screen, self.snake_speed, length=self.snake_length, width=self.snake_width)
+                       else pygame.display.set_mode(
+            (self.display_size_x, self.display_size_y)))
+        self.snake = Snake(self.screen, self.snake_speed,
+                           length=self.snake_length, width=self.snake_width)
         self.apple = Apple(self.screen, self.apple_size)
         pygame.display.set_caption('Змейка для Ивана и Петра')
 
@@ -105,7 +110,8 @@ class Game(object):
         apple_y = self.apple.coordinates[1]
         apple_radius = self.apple.radius
         snake_head_radius = self.snake.width
-        if (apple_x - snake_head_x) ** 2 + (apple_y - snake_head_y) ** 2 < (apple_radius + snake_head_radius) ** 2:
+        if ((apple_x - snake_head_x) ** 2 + (apple_y - snake_head_y) ** 2
+                <= (apple_radius + snake_head_radius) ** 2):
             self.snake.length += self.snake_length_add
             self.snake.speed += self.snake_speed_add
             self.apple.relocate()
@@ -144,7 +150,8 @@ class Snake(object):
         DIRECTION_LEFT: [-1, 0]
     }
 
-    def __init__(self, screen, speed, length, width, color=pygame.Color('Green')):
+    def __init__(self, screen, speed, length, width,
+                 color=pygame.Color('Green')):
         self.screen = screen
         self.speed = speed
         self.current_direction = random.choice(self.DIRECTIONS.keys())
@@ -179,7 +186,8 @@ class Snake(object):
     def render(self):
         head_size = 2
         for pixel in self.pixels:
-            pygame.draw.circle(self.screen, self.color, pixel, self.width + head_size, 0)
+            pygame.draw.circle(self.screen, self.color, pixel,
+                               self.width + head_size, 0)
             head_size = 0
 
     def update(self):
@@ -200,7 +208,8 @@ class Apple(object):
         self.coordinates = self.relocate()
 
     def render(self):
-        pygame.draw.circle(self.screen, self.color, self.coordinates, self.radius, 0)
+        pygame.draw.circle(self.screen, self.color, self.coordinates,
+                           self.radius, 0)
 
     def relocate(self):
         max_x, max_y = self.screen.get_size()
@@ -217,6 +226,7 @@ class Apple(object):
 def main():
     snake_game = Game()
     snake_game.run()
+
 
 if __name__ == '__main__':
     main()
